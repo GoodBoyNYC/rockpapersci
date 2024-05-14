@@ -38,19 +38,18 @@ function playRound(humanChoice, computerChoice) {
         humanScore++;
         alert(`You won. ${humanChoice} beats ${computerChoice}.`)
     }
-    console.log()
-    playRound(humanChoice, computerChoice);
 }
 
 
+let humanScore = 0;
+let computerScore = 0;
 
 function playGame() {
-    let humanScore = 0;
-    let computerScore = 0;
-    const humanSelection = getHumanChoice();
-    const computerSelection = getComputerChoice();
+
 
     for (let i = 0; i < 5; i++) {
+        const humanSelection = getHumanChoice();
+        const computerSelection = getComputerChoice();
         playRound(humanSelection, computerSelection);
         alert(`Score:
         You: ${humanScore}
