@@ -1,3 +1,9 @@
+let humanScore = 0;
+let computerScore = 0;
+const rpsButtons = document.querySelectorAll(".button");
+const results = document.querySelector(".results");
+const notice = document.querySelector(".notice");
+
 function getComputerChoice() {
     let x = Math.floor(Math.random() * 3);
     if (x === 0) {
@@ -10,49 +16,59 @@ function getComputerChoice() {
     }
 }
 
-function getHumanChoice() {
-    let choice = prompt("RPS?");
-    return choice.toLowerCase();
-}
+// function getHumanChoice() {
+//     let choice = prompt("RPS?");
+//     return choice.toLowerCase();
+// }
+results.textContent = `Score:\nYou: ${humanScore}\nComp: ${computerScore}`;
+
+
+//const results = document.querySelectorAll(".results");
+
+rpsButtons.forEach((btn) => {
+    btn.addEventListener("click", event => {
+        const humanChoice = event.target.textContent.toLowerCase();
+        const computerSelection = getComputerChoice();
+        playRound(humanChoice, computerSelection);
+    });
+});
 
 function playRound(humanChoice, computerChoice) {
     if (humanChoice === 'rock' && computerChoice === 'paper') {
         computerScore++;
-        alert(`You lost. Paper beats Rock.`);
+        notice.textContent = `You lost. Paper beats Rock.`;
     }
     else if (humanChoice === 'paper' && computerChoice === 'scissor') {
         computerScore++;
-        alert(`You lost. Scissor beats Rock.`);
+        notice.textContent = `You lost. Scissor beats Rock.`;
 
     }
-    else if (humanChoice = 'scissor' && computerChoice === 'rock') {
+    else if (humanChoice === 'scissor' && computerChoice === 'rock') {
         computerScore++;
-        alert(`You lost. Rock beats scissor.`);
+        notice.textContent = `You lost. Rock beats scissor.`;
 
     }
     else if (humanChoice === computerChoice) {
-        alert(`Tie.`);
+        notice.textContent = `Tie.`;
 
     }
     else {
         humanScore++;
-        alert(`You won. ${humanChoice} beats ${computerChoice}.`)
+        notice.textContent = `You won. ${humanChoice} beats ${computerChoice}.`;
     }
+    checkWinCondition();
+    results.textContent = `Score:\nYou: ${humanScore}\nComp: ${computerScore}`;
 }
 
-
-let humanScore = 0;
-let computerScore = 0;
-
-function playGame() {
-
-
-    for (let i = 0; i < 5; i++) {
-        const humanSelection = getHumanChoice();
-        const computerSelection = getComputerChoice();
-        playRound(humanSelection, computerSelection);
-        alert(`Score:
-        You: ${humanScore}
-        Comp: ${computerScore}`);
+function checkWinCondition() {
+    if (humanScore == 5) {
+        notice.textContent = `You Win!`;
+        humanScore = 0;
+        computerScore = 0;
+    } else if (computerScore == 5) {
+        notice.textContent = `Computer Wins!`;
+        humanScore = 0;
+        computerScore = 0;
     }
+
 }
